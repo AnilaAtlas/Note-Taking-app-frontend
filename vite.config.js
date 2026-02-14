@@ -12,7 +12,8 @@ export default defineConfig({
         secure: false,
       }
     }
-  }
+  },
+  // Add environment variable prefix
+  envPrefix: 'VITE_',
 })
-
 
