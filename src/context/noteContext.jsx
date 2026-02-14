@@ -7,19 +7,23 @@ export const NoteProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // 🔹 GET NOTES
-  // const getNotes = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await backend_URL.get("/getnotes");
-  //     setNotes(response.data);
-  //   } catch (error) {
-  //     console.error("Error in fetching notes:", error);
-  //     setNotes([]); // safety
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+// ////////////////////////////////////////////////////////////////////////////////////////////////////
+  const API_BASE = "https://echonote-taking-app.onrender.com/api/v1/noteapp";  
+
+//  GET NOTES
+  const getNotes = async () => {
+    setLoading(true);
+    try {
+      // const response = await backend_URL.get("/getnotes");/////////////////////////////////////////
+      const response = await axios.get(`${API_BASE}/getnotes`);
+      setNotes(response.data);
+    } catch (error) {
+      console.error("Error in fetching notes:", error);
+      setNotes([]); // safety
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     getNotes();
@@ -27,7 +31,8 @@ export const NoteProvider = ({ children }) => {
 
   // 🔹 CREATE NOTE
   const createNote = async (note) => {
-    const res = await backend_URL.post("/createnote", note);
+    // const res = await backend_URL.post("/createnote", note);////////////////////////////////////////
+     const res = await axios.post(`${API_BASE}/createnote`, note);
     setNotes((prev) => [res.data, ...prev]);
   };
 
@@ -63,22 +68,3 @@ export const NoteProvider = ({ children }) => {
 
 export default NoteProvider;
 
-
-
-// src/context/noteContext.jsx
-const getNotes = async () => {
-    setLoading(true);
-    try {
-      // 🔍 Debug: Log the exact URL being called
-      console.log("Calling URL:", backend_URL.defaults.baseURL + "/getnotes");
-      
-      const response = await backend_URL.get("/getnotes");
-      setNotes(response.data);
-    } catch (error) {
-      console.error("Error in fetching notes:", error);
-      console.error("Failed URL:", error.config?.url);
-      setNotes([]);
-    } finally {
-      setLoading(false);
-    }
-};
