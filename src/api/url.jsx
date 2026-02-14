@@ -1,5 +1,6 @@
 import axios from "axios";
 
 export const backend_URL = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || "https://echonote-taking-app.onrender.com/api/v1/noteapp",
+    baseURL: import.meta.env.VITE_API_URL || "https://echonote-taking-app.onrender.com/api/v1/noteapp"
 });
+console.log("API Base URL:", backend_URL.defaults.baseURL);

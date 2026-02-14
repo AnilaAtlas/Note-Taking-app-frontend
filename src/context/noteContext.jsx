@@ -62,3 +62,4 @@ export const NoteProvider = ({ children }) => {
 };
 
 export default NoteProvider;
+
