@@ -94,4 +94,19 @@ function Notecard({note}) {
   )
 }
 
+// In any component
+const testAPI = async () => {
+  try {
+    const response = await fetch('https://echonote-taking-app.onrender.com/api/v1/noteapp/getnotes');
+    const data = await response.json();
+    console.log("Direct fetch worked:", data);
+  } catch (error) {
+    console.error("Direct fetch failed:", error);
+  }
+};
+
+return (
+  <button onClick={testAPI}>Test API Directly</button>
+);
+
 export default Notecard

@@ -8,18 +8,18 @@ export const NoteProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   // 🔹 GET NOTES
-  const getNotes = async () => {
-    setLoading(true);
-    try {
-      const response = await backend_URL.get("/getnotes");
-      setNotes(response.data);
-    } catch (error) {
-      console.error("Error in fetching notes:", error);
-      setNotes([]); // safety
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const getNotes = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await backend_URL.get("/getnotes");
+  //     setNotes(response.data);
+  //   } catch (error) {
+  //     console.error("Error in fetching notes:", error);
+  //     setNotes([]); // safety
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     getNotes();
@@ -63,3 +63,22 @@ export const NoteProvider = ({ children }) => {
 
 export default NoteProvider;
 
+
+
+// src/context/noteContext.jsx
+const getNotes = async () => {
+    setLoading(true);
+    try {
+      // 🔍 Debug: Log the exact URL being called
+      console.log("Calling URL:", backend_URL.defaults.baseURL + "/getnotes");
+      
+      const response = await backend_URL.get("/getnotes");
+      setNotes(response.data);
+    } catch (error) {
+      console.error("Error in fetching notes:", error);
+      console.error("Failed URL:", error.config?.url);
+      setNotes([]);
+    } finally {
+      setLoading(false);
+    }
+};
